@@ -1,0 +1,200 @@
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <FastLED.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+const int boutonGauche = 2;
+const int boutonDroite = 3;
+#define LED_PIN     4
+#define NUM_LEDS    20
+CRGB leds[NUM_LEDS];
+
+// Questions
+struct Question {
+  int a, b;
+  char operateur;
+  int correctAnswer;
+  int wrongAnswer;
+  bool correctLeft;
+};
+
+Question questions[6];  // 6 questions
+int currentQuestion = 0;
+bool waitingAnswer = false;
+int score = 0;  // Pour compter les bonnes réponses
+
+void setup() {
+  pinMode(boutonGauche, INPUT_PULLUP);
+  pinMode(boutonDroite, INPUT_PULLUP);
+
+  Serial.begin(9600);
+
+  // OLED
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("Ecran OLED non detecte");
+    while (true);
+  }
+
+  // LED
+  FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.setBrightness(100);
+
+  randomSeed(analogRead(0));
+
+  // Message de debut
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+  centerText("La serie", 0);
+  centerText("va", 20);
+  centerText("commencer", 40);
+  display.display();
+  delay(2500);
+
+  // Chrono 10s
+  for (int i = 10; i > 0; i--) {
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setCursor(55, 25);
+    display.print(i);
+    display.display();
+    delay(1000);
+  }
+
+  generateQuestions();
+  showQuestion(currentQuestion);
+  waitingAnswer = true;
+}
+
+void loop() {
+  if (!waitingAnswer) return;
+
+  if (digitalRead(boutonGauche) == LOW) {
+    delay(200);
+    checkAnswer(true);
+  }
+  if (digitalRead(boutonDroite) == LOW) {
+    delay(200);
+    checkAnswer(false);
+  }
+}
+
+void generateQuestions() {
+  for (int i = 0; i < 6; i++) {
+    int a, b;
+    char op = random(0, 2) == 0 ? '+' : '-';
+    if (op == '+') {
+      a = random(1, 11);
+      b = random(1, 11);
+    } else {
+      a = random(1, 11);
+      b = random(1, a + 1); // pas de negatif
+    }
+    int result = (op == '+') ? a + b : a - b;
+
+    int wrong;
+    do {
+      wrong = result + random(-3, 4); // faux réponse proche de la vraie
+    } while (wrong == result || wrong < 0);
+
+    if (random(0, 2) == 0) {
+      questions[i] = {a, b, op, result, wrong, true};
+    } else {
+      questions[i] = {a, b, op, result, wrong, false};
+    }
+  }
+}
+
+void showQuestion(int index) {
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setCursor(0, 0);
+
+  Question q = questions[index];
+  display.print(q.a);
+  display.print(" ");
+  display.print(q.operateur);
+  display.print(" ");
+  display.print(q.b);
+  display.println(" = ?");
+
+  display.setTextSize(2);
+  display.setCursor(10, 40);
+  display.print(q.correctLeft ? q.correctAnswer : q.wrongAnswer);
+
+  int xPos = (q.correctLeft ? q.wrongAnswer : q.correctAnswer) >= 10 ? 90 : 100;
+  display.setCursor(xPos, 40);
+  display.print(q.correctLeft ? q.wrongAnswer : q.correctAnswer);
+
+  display.display();
+}
+
+void checkAnswer(bool choseLeft) {
+  Question q = questions[currentQuestion];
+  bool correct = (choseLeft == q.correctLeft);
+
+  if (correct) score++;  // incrémente score si bonne réponse
+
+  setLedColor(correct ? CRGB::Green : CRGB::Red);
+
+  display.clearDisplay();
+  display.setTextSize(2);
+  centerText(correct ? "Bravo :)" : "Oups :(", 25);
+  display.display();
+
+  delay(1500);
+  clearLeds();
+
+  currentQuestion++;
+  if (currentQuestion < 6) {
+    showQuestion(currentQuestion);
+  } else {
+    // Affichage "Serie terminee"
+    display.clearDisplay();
+    display.setTextSize(2);
+    centerText("Serie", 15);      
+    centerText("terminee", 40);  
+    display.display();
+
+    delay(5000);
+
+    // Affichage score
+    display.clearDisplay();
+    display.setTextSize(2);
+    centerText("Score", 15);
+    char scoreMsg[10];
+    sprintf(scoreMsg, "%d/6", score);
+    centerText(scoreMsg, 40);
+    display.display();
+
+    waitingAnswer = false;
+  }
+}
+
+void setLedColor(CRGB color) {
+  for (int i = 1; i < NUM_LEDS; i++) { // LED 0 reste eteinte
+    leds[i] = color;
+  }
+  FastLED.show();
+}
+
+void clearLeds() {
+  for (int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::Black;
+  }
+  FastLED.show();
+}
+
+void centerText(const char* text, int y) {
+  int16_t x1, y1;
+  uint16_t w, h;
+  display.getTextBounds(text, 0, y, &x1, &y1, &w, &h);
+  int x = (SCREEN_WIDTH - w) / 2;
+  display.setCursor(x, y);
+  display.println(text);
+}
