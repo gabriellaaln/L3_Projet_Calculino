@@ -1,5 +1,5 @@
 # Notre projet Calculino 🏫👩‍🏫
-Ce projet est réalisé dans le cadre du module "Communication Sans Fil" en Licence 1 à l'Université Nice côte d'azur. Il est encadré par Fabien Ferrero, Lanteri Jerome et 
+Ce projet est réalisé dans le cadre du module "Communication Sans Fil" en Licence 1 à l'Université Nice côte d'azur. Il est encadré par Fabien Ferrero, Lanteri Jerome et Tombakdjian Lionnel 
 
 Projet réalisé par Allinei Gabriella et Pisano Giulia étudiante en Licence Sciences et Technologies Parcours PPPE (Parcours Préparatoire au Professorat des Écoles) en 3ème année sur le Campus Valrose. 
 
