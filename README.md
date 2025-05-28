@@ -15,29 +15,29 @@ En effet, Calculino est un dispositif éducatif interactif que des élèves d’
 
 Lors de la réalisation de notre projet, nous avons utilisé divers outils. L'ensemble du matériel étant le suivant :
 
-1 Carte Arduino UCA
+➡️ 1 Carte Arduino UCA
 
-→ C’est le cerveau du projet. Elle génère les calculs aléatoires, récupère les réponses des élèves via les boutons, pilote l’écran OLED, les LEDs, et gère la communication avec l'ordinateur.
+C’est le cerveau du projet. Elle génère les calculs aléatoires, récupère les réponses des élèves via les boutons, pilote l’écran OLED, les LEDs, et gère la communication avec l'ordinateur.
 
-1 Écran OLED 0.96" (I2C)
+➡️ 1 Écran OLED 0.96" (I2C)
 
-→ Sert à afficher à l'élève le calcul à résoudre, les deux réponses possibles. Il est possible d'afficher d'autres informations comme un chronomètre. 
+Sert à afficher à l'élève le calcul à résoudre, les deux réponses possibles. Il est possible d'afficher d'autres informations comme un chronomètre. 
 
-2 Boutons poussoirs inclus sur la carte UCA
+➡️ 2 Boutons poussoirs inclus sur la carte UCA
 
-→ Proposent une autre méthode de réponse : l’élève peut appuyer sur un bouton pour valider son choix (bouton 1 = réponse 1, bouton 2 = réponse 2).
+Proposent une autre méthode de réponse : l’élève peut appuyer sur un bouton pour valider son choix (bouton 1 = réponse 1, bouton 2 = réponse 2).
 
-Bandeau de 20 LEDs inclus sur la carte UCA
+➡️ Bandeau de 20 LEDs inclus sur la carte UCA
 
-→ Indiquent visuellement à l’élève si sa réponse est correcte (LEDs vertes allumées) ou fausse (LEDs rouges allumées).
+Indiquent visuellement à l’élève si sa réponse est correcte (LEDs vertes allumées) ou fausse (LEDs rouges allumées).
 
-1 Ordinateur
+➡️ 1 Ordinateur
 
-→ Reçoit toutes les réponses via l’application Arduino, et peut éventuellement afficher les résultats sous forme de statistiques dans le moniteur série de l'application Arduino.
+Reçoit toutes les réponses via l’application Arduino, et peut éventuellement afficher les résultats sous forme de statistiques dans le moniteur série de l'application Arduino.
 
-Câblage (1 câble USB-C vers USB-A et plusieurs cordon de raccordement)
+➡️ Câblage (1 câble USB-C vers USB-A et plusieurs cordon de raccordement)
 
-→ Alimentent et relis l’ensemble du dispositif.
+Alimentent et relis l’ensemble du dispositif.
 
 # Motivation 💪
 
@@ -84,15 +84,15 @@ Câblage (1 câble USB-C vers USB-A et plusieurs cordon de raccordement)
 
 # Pistes d'amélioration 📈✏️
 
-L’ajout lors des séances notées d’une contrainte de temps avec un décompte de 10 secondes pour chaque calcul.
+🤔 L’ajout lors des séances notées d’une contrainte de temps avec un décompte de 10 secondes pour chaque calcul.
 
 -> Permet de tester la rapidité de raisonnement des élèves, tout en ajoutant un léger défi motivant. 
 
-Système de remontée des résultats vers l’ordinateur de l’enseignante.
+🤔 Système de remontée des résultats vers l’ordinateur de l’enseignante.
 
 -> Consultation automatiquement des statistiques de chaque élève : taux de réussite, temps de réponse, types d’erreurs fréquentes… 
 
-Système de correction automatique sur la carte elle-même, affichant immédiatement la réponse qui est correcte. 
+🤔 Système de correction automatique sur la carte elle-même, affichant immédiatement la réponse qui est correcte. 
 
 -> Offre un retour immédiat à l’élève, favorisant l’auto-correction et l’apprentissage en autonomie. 
 
@@ -120,7 +120,7 @@ Mais on pourrait aussi :
 
 # Conclusion et Perspectives 
 
-Conclusion :
+**Conclusion :**
 
 -> Concevoir un dispositif pédagogique innovant et accessible nous a permis de réfléchir concrètement à la place des outils numériques dans nos pratiques de classe.
 
@@ -128,7 +128,7 @@ Conclusion :
 
 -> Notre engouement pour ce projet reflète notre ambition d’être des enseignantes dynamiques, créatives et ouvertes à l’innovation pédagogique.
 
-Perspectives : 
+**Perspectives :**
 
 ✅ Continuer à apprendre et à s’inspirer des nouvelles technologies pour enrichir nos pratiques éducatives.
 
