@@ -96,7 +96,7 @@ Alimentent et relis l’ensemble du dispositif.
 
 -> Offre un retour immédiat à l’élève, favorisant l’auto-correction et l’apprentissage en autonomie. 
 
-🤓 Ces améliorations techniques rendraient l’outil non seulement plus interactif, mais aussi plus utile d’un point de vue pédagogique.
+Ces améliorations techniques rendraient l’outil non seulement plus interactif, mais aussi plus utile d’un point de vue pédagogique. 🤓👆
 
 # Les différentes utilisations 👩‍🏫
 
